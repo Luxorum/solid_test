@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:solid_test/constants.dart';
 
@@ -31,7 +32,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: GestureDetector(
-          onTap: () => setState(() => _backgroundColor = _generateColor()),
+          onTap: () {
+            HapticFeedback.heavyImpact();
+            setState(() => _backgroundColor = _generateColor());
+          },
           child: AnimatedContainer(
             color: _backgroundColor ?? primaryColor,
             duration: const Duration(seconds: 1),
