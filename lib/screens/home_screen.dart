@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:solid_test/constants.dart';
 
 ///Application home screen
 class HomeScreen extends StatefulWidget {
@@ -15,6 +14,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  static const _animationDuration = Duration(seconds: 1);
+  static const _blurRadius = 20.0;
+
   Color? _backgroundColor;
 
   @override
@@ -38,14 +40,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           },
           child: AnimatedContainer(
             color: _backgroundColor ?? primaryColor,
-            duration: const Duration(seconds: 1),
+            duration: _animationDuration,
             child: Center(
               child: Text(
                 localization.greeting,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   shadows: [
                     Shadow(
-                      blurRadius: blurRadiusMedium,
+                      blurRadius: _blurRadius,
                       color: primaryColor,
                     ),
                   ],
@@ -60,13 +62,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Color _generateColor() {
     final random = Random();
-    final generatedColor = Color.fromRGBO(
-      random.nextInt(256),
-      random.nextInt(256),
-      random.nextInt(256),
+    const colorComponentMax = 256;
+
+    return Color.fromRGBO(
+      random.nextInt(colorComponentMax),
+      random.nextInt(colorComponentMax),
+      random.nextInt(colorComponentMax),
       1,
     );
-
-    return generatedColor;
   }
 }
